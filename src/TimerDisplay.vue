@@ -1,6 +1,6 @@
 <template>
-    <div class="timer-display">
-      <h2>Time Remaining: {{ formattedTime }}</h2>
+    <div id="timerDisplay">
+      <h2>{{ formattedTime }}</h2>
     </div>
   </template>
   
@@ -21,11 +21,4 @@
     }
   };
   </script>
-  
-  <style scoped>
-  .timer-display {
-    font-size: 2rem;
-    margin-top: 20px;
-  }
-  </style>
   

@@ -1,5 +1,5 @@
 <template>
-    <div class="timer-input">
+    <div class="formItems">
       <input v-model.number="time" type="number" placeholder="Enter time in seconds" />
       <button @click="startTimer">Start Timer</button>
     </div>
@@ -9,22 +9,16 @@
   export default {
     data() {
       return {
-        time: 0 // Input value for time
+        time: 0
       };
     },
     methods: {
       startTimer() {
         if (this.time > 0) {
-          this.$emit('start-countdown', this.time); // Emit event to the parent
+          this.$emit('start-countdown', this.time);
         }
       }
     }
   };
   </script>
-  
-  <style scoped>
-  .timer-input {
-    margin-top: 20px;
-  }
-  </style>
   

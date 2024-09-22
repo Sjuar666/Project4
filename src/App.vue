@@ -1,14 +1,14 @@
 <template>
-  <div id="app">
-    <h1>Countdown Timer</h1>
+  <div class="content">
+    <h1 class="main-title">Countdown Timer</h1>
     <TimerInput @start-countdown="handleStartCountdown" />
     <TimerDisplay :timeRemaining="timeRemaining" />
   </div>
 </template>
 
 <script>
-import TimerDisplay from './TimerDisplay.vue';
 import TimerInput from './TimerInput.vue';
+import TimerDisplay from './TimerDisplay.vue';
 
 export default {
   components: {
@@ -17,7 +17,7 @@ export default {
   },
   data() {
     return {
-      timeRemaining: 0,  // Total time in seconds
+      timeRemaining: 0,
       interval: null
     };
   },
@@ -47,10 +47,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-#app {
-  text-align: center;
-  margin-top: 40px;
-}
-</style>
