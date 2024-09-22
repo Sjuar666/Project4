@@ -1,100 +1,56 @@
 <template>
-  <div class="content">
-    <div>
-      <h1 class="main-title">Countdown Timer</h1>
-      <h2>by Samuel Juarez</h2>
-    </div>
-
-    <div class="formItems">
-      <input v-model.number="timeInput" type="number" placeholder="Enter time in seconds" />
-      <button @click="startTimer" type="button">Start Timer</button>
-    </div>
-
-    <div class="toDo">
-      <h2>Time Remaining:</h2>
-      <div id="timerDisplay">{{ formattedTime }}</div>
-    </div>
+  <div id="app">
+    <h1>Countdown Timer</h1>
+    <TimerInput @start-countdown="handleStartCountdown" />
+    <TimerDisplay :timeRemaining="timeRemaining" />
   </div>
 </template>
 
 <script>
+import TimerDisplay from './TimerDisplay.vue';
+import TimerInput from './TimerInput.vue';
+
 export default {
+  components: {
+    TimerInput,
+    TimerDisplay
+  },
   data() {
     return {
-      timeInput: 0,
-      timeRemaining: 0,
-      timerInterval: null,
+      timeRemaining: 0,  // Total time in seconds
+      interval: null
     };
   },
-  computed: {
-    formattedTime() {
-      const minutes = Math.floor(this.timeRemaining / 60);
-      const seconds = this.timeRemaining % 60;
-      return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-    },
-  },
   methods: {
-    startTimer() {
-      if (this.timeInput > 0) {
-        this.timeRemaining = this.timeInput;
-
-        if (this.timerInterval) {
-          clearInterval(this.timerInterval);
-        }
-
-        this.timerInterval = setInterval(() => {
-          if (this.timeRemaining > 0) {
-            this.timeRemaining--;
-          } else {
-            clearInterval(this.timerInterval);
-            alert('Time is up!');
-          }
-        }, 1000);
-      } else {
-        alert('Please enter a valid number of seconds.');
-      }
+    handleStartCountdown(time) {
+      this.timeRemaining = time;
+      this.startCountdown();
     },
-  },
-  beforeUnmount() {
-    if (this.timerInterval) {
-      clearInterval(this.timerInterval);
+    startCountdown() {
+      if (this.interval) {
+        clearInterval(this.interval);
+      }
+
+      this.interval = setInterval(() => {
+        if (this.timeRemaining > 0) {
+          this.timeRemaining -= 1;
+        } else {
+          clearInterval(this.interval);
+        }
+      }, 1000);
     }
   },
+  beforeDestroy() {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+  }
 };
 </script>
 
 <style scoped>
-/* Your CSS */
-.content {
+#app {
   text-align: center;
-  margin-top: 50px;
-}
-
-.main-title {
-  font-size: 2.5em;
-}
-
-.formItems {
-  margin: 20px 0;
-}
-
-.formItems input {
-  padding: 10px;
-  width: 200px;
-  margin-right: 10px;
-}
-
-.formItems button {
-  padding: 10px 20px;
-  cursor: pointer;
-}
-
-.toDo {
-  font-size: 1.5em;
-}
-
-#timerDisplay {
-  font-size: 2.5em;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 </style>
