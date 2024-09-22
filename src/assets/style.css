@@ -98,7 +98,7 @@
   button:hover {
     background-color: darkred;
   }
-  
+
 .content {
   font-family: Arial, Helvetica, sans-serif;
   height: 100vh;
@@ -116,6 +116,12 @@
 
 .history {
   margin-top: 40px;
+}
+
+.usage-counter {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 1.2em;
 }
 
   

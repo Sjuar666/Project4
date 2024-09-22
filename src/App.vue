@@ -10,6 +10,9 @@
 
     <!-- HistoryList component showing countdown history -->
     <HistoryList :history="history" @delete-history="handleDeleteHistory" />
+
+    <!-- UsageCounter component showing the number of times the timer has been used -->
+    <UsageCounter :usageCount="usageCount" />
   </div>
 </template>
 
@@ -17,26 +20,34 @@
 import TimerInput from './components/TimerInput.vue';
 import TimerDisplay from './components/TimerDisplay.vue';
 import HistoryList from './components/HistoryList.vue';
+import UsageCounter from './components/UsageCounter.vue';
 
 export default {
   components: {
     TimerInput,
     TimerDisplay,
-    HistoryList
+    HistoryList,
+    UsageCounter
   },
   data() {
     return {
       timeRemaining: 0,  // Total time in seconds
       inputTime: 0,      // The time inputted by the user
       interval: null,    // Timer interval
-      history: []        // Array to store countdown history
+      history: [],       // Array to store countdown history
+      usageCount: 0      // Track how many times the timer has been used
     };
+  },
+  created() {
+    // Load history and usage count from localStorage when the component is created
+    this.loadFromLocalStorage();
   },
   methods: {
     handleStartCountdown(time) {
       this.inputTime = time; // Store the input time
       this.timeRemaining = time;
       this.startCountdown();
+      this.incrementUsageCount(); // Increment the usage count when countdown starts
     },
     startCountdown() {
       // Clear any existing interval
@@ -63,10 +74,40 @@ export default {
       this.history.unshift(
         `Countdown of ${formattedInputTime} finished at ${formattedTime}`
       );
+
+      // Save history to localStorage
+      this.saveToLocalStorage();
     },
     handleDeleteHistory(index) {
       // Remove the selected history entry
       this.history.splice(index, 1);
+
+      // Save history to localStorage after deletion
+      this.saveToLocalStorage();
+    },
+    incrementUsageCount() {
+      this.usageCount += 1;
+
+      // Save the updated usage count to localStorage
+      this.saveToLocalStorage();
+    },
+    saveToLocalStorage() {
+      // Save history and usage count to localStorage
+      localStorage.setItem('countdownHistory', JSON.stringify(this.history));
+      localStorage.setItem('usageCount', this.usageCount);
+    },
+    loadFromLocalStorage() {
+      // Load history and usage count from localStorage if available
+      const savedHistory = localStorage.getItem('countdownHistory');
+      const savedUsageCount = localStorage.getItem('usageCount');
+
+      if (savedHistory) {
+        this.history = JSON.parse(savedHistory);
+      }
+
+      if (savedUsageCount) {
+        this.usageCount = parseInt(savedUsageCount, 10);
+      }
     }
   },
   beforeDestroy() {
