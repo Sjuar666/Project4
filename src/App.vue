@@ -78,24 +78,3 @@ export default {
 };
 </script>
 
-<style scoped>
-/* Add styles to make the countdown timer and history look good */
-.content {
-  font-family: Arial, Helvetica, sans-serif;
-  height: 100vh;
-  background: #f0f0f0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.main-title {
-  font-size: 3em;
-  color: teal;
-}
-
-.history {
-  margin-top: 40px;
-}
-</style>

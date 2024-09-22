@@ -27,34 +27,5 @@
   };
   </script>
   
-  <style scoped>
-  ul {
-    list-style: none;
-    padding: 0;
-  }
   
-  li {
-    background-color: #e0f7fa;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-left: 5px solid teal;
-    border-radius: 4px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  button {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: darkred;
-  }
-  </style>
   
