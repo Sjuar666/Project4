@@ -20,7 +20,6 @@
     },
     methods: {
       deleteHistory(index) {
-        // Emit an event to parent component to delete this specific item
         this.$emit('delete-history', index);
       }
     }
